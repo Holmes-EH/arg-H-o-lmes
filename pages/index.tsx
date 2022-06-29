@@ -17,6 +17,15 @@ const Home: NextPage = () => {
 		'Gennadios',
 		'Lysimachos',
 	])
+	const [newMember, setNewMember] = useState<String>('Charalampos')
+
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		const newMemberList = [...members]
+		newMemberList.push(newMember)
+		setMembers(newMemberList)
+	}
+
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -48,37 +57,40 @@ const Home: NextPage = () => {
 				/>
 				<link rel='manifest' href='/site.webmanifest' />
 			</Head>
-			{/* <!-- Header section --> */}
-			<header>
-				<div>
+			<header className={styles.header}>
+				<div className={styles.headerImage}>
 					<Image
 						alt='The Argo - bronze'
 						src='/argo.png'
-						layout='responsive'
-						width={350}
-						height={350}
+						layout='fixed'
+						priority
+						width={150}
+						height={150}
 					/>
 				</div>
 				<h1>Les Argonautes</h1>
 			</header>
-
 			<main className={styles.main}>
-				{/* <!-- Main section --> */}
-				<main>
-					{/* <!-- New member form --> */}
+				<div className={styles.addMember}>
 					<h2>Ajouter un(e) Argonaute</h2>
-					<form className='new-member-form'>
-						<label htmlFor='name'>Nom de l&apos;Argonaute</label>
+					<form
+						className={styles.newMemberForm}
+						onSubmit={handleSubmit}
+					>
+						<label htmlFor='name'>Nom de l&apos;Argonaute </label>
 						<input
 							id='name'
 							name='name'
 							type='text'
-							placeholder='Charalampos'
+							value={newMember}
+							onChange={(e) => {
+								setNewMember(e.target.value)
+							}}
 						/>
 						<button type='submit'>Envoyer</button>
 					</form>
-
-					{/* <!-- Member list --> */}
+				</div>
+				<div className={styles.members}>
 					<h2>Membres de l'équipage</h2>
 					{loading ? (
 						<Loader />
@@ -96,7 +108,9 @@ const Home: NextPage = () => {
 							})}
 						</section>
 					)}
-				</main>
+				</div>
+			</main>
+			<footer className={styles.footer}>
 				{loading ? (
 					<>
 						<p>
