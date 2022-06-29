@@ -1,12 +1,14 @@
-import type { NextPage } from 'next'
+import type { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 import { useState, useEffect } from 'react'
 import { globalContext } from '../components/context/store'
+import dispatchReqError from '../lib/dispatchReqError'
 
 import Loader from '../components/Loader'
+import axios from 'axios'
 
 type Props = {
 	savedMembers: { name: string; _id: string }[]
@@ -21,9 +23,22 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		const newMemberList = [...members]
-		newMemberList.push(newMember)
-		setMembers(newMemberList)
+		dispatch({ type: 'LOADING' })
+		try {
+			const { data } = await axios.post('/api/members', {
+				name: newMember,
+			})
+			const newMemberList = [...members]
+			newMemberList.push(data)
+			console.log(newMemberList)
+			setNewMember('')
+			setMembers(newMemberList)
+			setTimeout(() => {
+				dispatch({ type: 'DONE_LOADING' })
+			}, 1000)
+		} catch (error) {
+			dispatchReqError(dispatch, error)
+		}
 	}
 
 	return (
@@ -83,6 +98,7 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 							name='name'
 							type='text'
 							value={newMember}
+							placeholder='Charalampos'
 							onChange={(e) => {
 								setNewMember(e.target.value)
 							}}
@@ -123,7 +139,11 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 					<>
 						<p>
 							Réalisé par{' '}
-							<a href='https://samuelholmes.tech'>
+							<a
+								href='https://samuelholmes.tech'
+								target='_blank'
+								rel='noopener noreferrer'
+							>
 								Samuel Holmes
 							</a>{' '}
 							en Hekatombaion de l'an 2022 après JC

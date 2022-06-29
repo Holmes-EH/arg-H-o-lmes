@@ -46,6 +46,7 @@
 .memberList {
 	display: grid;
 	grid-template-columns: auto auto auto;
+	gap: 10px;
 }
 .memberItem:nth-child(3n + 2) {
 	border-left: 1px solid black;
