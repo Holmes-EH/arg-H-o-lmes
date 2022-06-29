@@ -1,21 +1,13 @@
 import Member from '../models/memberModel'
 import dbConnect from '../lib/dbConnect'
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { brotliDecompressSync } from 'zlib'
-
-type MemberType = {
-	name: String
-}
 
 dbConnect()
 
 // @desc    Get all members
 // @route   GET /api/members
 // @access  Public
-const getMembers = async (
-	req: NextApiRequest,
-	res: NextApiResponse<MemberType[]>
-) => {
+const getMembers = async (req, res) => {
 	const members = await Member.find()
 	if (members.length > 0) {
 		res.status(200).json(members)
@@ -27,12 +19,9 @@ const getMembers = async (
 // @desc    Add new member
 // @route   POST /api/members
 // @access  Public
-const addNewMember = async (
-	req: NextApiRequest,
-	res: NextApiResponse<MemberType>
-) => {
+const addNewMember = async (req, res) => {
 	const { name } = req.body
-	const memberExists: boolean = await Member.findOne({ name: name })
+	const memberExists = await Member.findOne({ name: name })
 	if (memberExists) {
 		res.status(400).json({
 			message: 'Cet équipier est déjà dans la liste...',

@@ -1,12 +1,7 @@
-import { createContext, useContext, useReducer } from 'react'
+import { createContext, useReducer } from 'react'
 import reducer from './reducer'
 
-interface AppContextInterface {
-	loading: boolean
-	message: object
-}
-
-const AppContext = createContext<AppContextInterface | null>(null)
+const AppContext = createContext(null)
 AppWrapper.displayName = 'Store'
 
 export function AppWrapper({ children }) {
@@ -22,6 +17,4 @@ export function AppWrapper({ children }) {
 	)
 }
 
-export function globalContext() {
-	return useContext(AppContext)
-}
+export { AppContext }

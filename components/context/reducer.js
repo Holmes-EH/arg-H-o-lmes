@@ -7,7 +7,7 @@ export default function reducer(state, action) {
 		case 'LOADING':
 			return { ...state, loading: true }
 		case 'DONE_LOADING':
-			return { ...state, loading: false, loadingMessage: {} }
+			return { ...state, loading: false }
 
 		default:
 			throw new Error('Dispatch case does not exist')

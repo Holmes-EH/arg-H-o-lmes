@@ -1,25 +1,20 @@
-import type { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-import { useState, useEffect } from 'react'
-import { globalContext } from '../components/context/store'
+import { useState, useContext } from 'react'
+import { AppContext } from '../components/context/store'
 import dispatchReqError from '../lib/dispatchReqError'
 
 import Loader from '../components/Loader'
 import axios from 'axios'
 
-type Props = {
-	savedMembers: { name: string; _id: string }[]
-}
-
-const Home: NextPage = ({ savedMembers }: Props) => {
-	const [state, dispatch] = globalContext()
+const Home = ({ savedMembers }) => {
+	const [state, dispatch] = useContext(AppContext)
 	const { loading } = state
 
-	const [members, setMembers] = useState<Array<string>>(savedMembers)
-	const [newMember, setNewMember] = useState<String>('')
+	const [members, setMembers] = useState(savedMembers)
+	const [newMember, setNewMember] = useState('')
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -107,7 +102,7 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 					</form>
 				</div>
 				<div className={styles.members}>
-					<h2>Membres de l'équipage</h2>
+					<h2>Membres de l&apos;équipage</h2>
 					{loading ? (
 						<Loader />
 					) : (
@@ -146,11 +141,11 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 							>
 								Samuel Holmes
 							</a>{' '}
-							en Hekatombaion de l'an 2022 après JC
+							en Hekatombaion de l&apos;an 2022 après JC
 						</p>
 						<p>
 							<em>
-								Génial ce que l'on trouve sur{' '}
+								Génial ce que l&apos;on trouve sur{' '}
 								<a
 									href='https://greekerthanthegreeks.com/2019/07/hekatombaion-the-ancient-athenian-month-of-july-and-first-month-of-the-year-in-ancient-greece.html'
 									target='_blank'
@@ -169,9 +164,9 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 
 export default Home
 
-export const getStaticProps: GetStaticProps = async () => {
-	const res = await fetch(`http://localhost:3000/api/members`)
+export const getServerSideProps = async () => {
+	const res = await fetch(`${process.env.API_URI}/members`)
 	const savedMembers = await res.json()
 
-	return { props: { savedMembers }, revalidate: 10 }
+	return { props: { savedMembers } }
 }

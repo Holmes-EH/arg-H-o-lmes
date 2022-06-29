@@ -1,14 +1,13 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { getMembers, addNewMember } from '../../../controllers/memberController'
 import nc from 'next-connect'
 
 const handler = nc({ attachParams: true })
 
 handler
-	.get(async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+	.get(async (req, res) => {
 		getMembers(req, res)
 	})
-	.post(async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+	.post(async (req, res) => {
 		addNewMember(req, res)
 	})
 
