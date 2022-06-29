@@ -16,6 +16,7 @@ const Loader = () => {
 			</div>
 			<div className={styles.wave}></div>
 			<div className={styles.wave}></div>
+			<div className={styles.wave}></div>
 		</div>
 	)
 }

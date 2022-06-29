@@ -16,18 +16,19 @@
 
 .main {
 	max-width: 960px;
-	min-height: 60vh;
+	min-height: 65vh;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 }
 .footer {
-	margin-top: 2em;
+	z-index: 2;
+	position: relative;
 	text-align: center;
 	color: #fff;
 	background-color: #015871;
-	padding: 0.25em 0;
+	padding: 0.25em 1em;
 }
 .newMemberForm {
 	display: flex;
@@ -45,7 +46,7 @@
 }
 .memberList {
 	display: grid;
-	grid-template-columns: auto auto auto;
+	grid-template-columns: 33% 33% 33%;
 	gap: 10px;
 }
 .memberItem:nth-child(3n + 2) {
