@@ -6,13 +6,13 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 
 const Home: NextPage = () => {
-	const [members, setMembers] = useState([
+	const [members, setMembers] = useState<Array<string>>([
 		'Eleftheria',
 		'Gennadios',
 		'Lysimachos',
 	])
 	return (
-		<div classNameName={styles.container}>
+		<div className={styles.container}>
 			<Head>
 				<title>ARGO - Samuel Holmes</title>
 				<meta
@@ -52,13 +52,13 @@ const Home: NextPage = () => {
 				<h1>Les Argonautes</h1>
 			</header>
 
-			<main classNameName={styles.main}>
+			<main className={styles.main}>
 				{/* <!-- Main section --> */}
 				<main>
 					{/* <!-- New member form --> */}
 					<h2>Ajouter un(e) Argonaute</h2>
 					<form className='new-member-form'>
-						<label for='name'>Nom de l&apos;Argonaute</label>
+						<label htmlFor='name'>Nom de l&apos;Argonaute</label>
 						<input
 							id='name'
 							name='name'
@@ -88,7 +88,7 @@ const Home: NextPage = () => {
 				<p>
 					Réalisé par{' '}
 					<a href='https://samuelholmes.tech'>Samuel Holmes</a> en
-					Anthestérion de l'an 515 avant JC
+					Hĕkătŏmbaiṓn de l'an 2022 après JC
 				</p>
 			</footer>
 		</div>
