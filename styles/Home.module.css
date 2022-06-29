@@ -1,45 +1,56 @@
-.main {
-	max-width: 960px;
-	margin: 0 auto;
-}
-
-.container header {
+.header {
 	background: #f4f4f4;
 	text-align: center;
-	padding: 2em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2em;
 }
-
-.container header img {
-	max-width: 96px;
+.headerImage {
+	max-width: 150px;
+	display: block;
 }
-
-.container header h1 {
+.header h1 {
 	font-size: 2.5em;
 }
 
-.container h1,
-.container h2 {
-	text-align: center;
+.main {
+	max-width: 960px;
+	min-height: 60vh;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
 }
-
-.container label {
-	display: block;
-	margin-bottom: 0.5em;
-}
-
-.new-member-form {
-	margin: 2em 0 4em 0;
-	text-align: center;
-}
-
-.member-item {
-	padding: 0.25em 0;
-}
-
-.container footer {
+.footer {
 	margin-top: 2em;
 	text-align: center;
 	color: #fff;
 	background: #f76c6c;
 	padding: 0.25em 0;
+}
+.newMemberForm {
+	display: flex;
+	gap: 1em;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.members {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+.memberList {
+	display: grid;
+	grid-template-columns: auto auto auto;
+}
+.memberItem:nth-child(3n + 2) {
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}
+.memberItem {
+	text-align: center;
 }
