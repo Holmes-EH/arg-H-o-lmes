@@ -8,16 +8,16 @@ import { globalContext } from '../components/context/store'
 
 import Loader from '../components/Loader'
 
-const Home: NextPage = () => {
+type Props = {
+	savedMembers: { name: string; _id: string }[]
+}
+
+const Home: NextPage = ({ savedMembers }: Props) => {
 	const [state, dispatch] = globalContext()
 	const { loading } = state
 
-	const [members, setMembers] = useState<Array<string>>([
-		'Eleftheria',
-		'Gennadios',
-		'Lysimachos',
-	])
-	const [newMember, setNewMember] = useState<String>('Charalampos')
+	const [members, setMembers] = useState<Array<string>>(savedMembers)
+	const [newMember, setNewMember] = useState<String>('')
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -100,9 +100,9 @@ const Home: NextPage = () => {
 								return (
 									<div
 										className={styles.memberItem}
-										key={`member-${index}`}
+										key={member._id}
 									>
-										{member}
+										{member.name}
 									</div>
 								)
 							})}
@@ -148,3 +148,10 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export const getStaticProps: GetStaticProps = async () => {
+	const res = await fetch(`http://localhost:3000/api/members`)
+	const savedMembers = await res.json()
+
+	return { props: { savedMembers }, revalidate: 10 }
+}
