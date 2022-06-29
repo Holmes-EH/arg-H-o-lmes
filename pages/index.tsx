@@ -4,8 +4,14 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 import { useState, useEffect } from 'react'
+import { globalContext } from '../components/context/store'
+
+import Loader from '../components/Loader'
 
 const Home: NextPage = () => {
+	const [state, dispatch] = globalContext()
+	const { loading } = state
+
 	const [members, setMembers] = useState<Array<string>>([
 		'Eleftheria',
 		'Gennadios',
@@ -15,6 +21,10 @@ const Home: NextPage = () => {
 		<div className={styles.container}>
 			<Head>
 				<title>ARGO - Samuel Holmes</title>
+				<meta
+					name='viewport'
+					content='width=device-width, initial-scale=1.0'
+				/>
 				<meta
 					name='description'
 					content='Dev Tech challenge pour WildCodeSchool - Samuel Holmes'
@@ -70,26 +80,54 @@ const Home: NextPage = () => {
 
 					{/* <!-- Member list --> */}
 					<h2>Membres de l'équipage</h2>
-					<section className='member-list'>
-						{members.map((member, index) => {
-							return (
-								<div
-									className='member-item'
-									key={`member-${index}`}
-								>
-									{member}
-								</div>
-							)
-						})}
-					</section>
+					{loading ? (
+						<Loader />
+					) : (
+						<section className={styles.memberList}>
+							{members.map((member, index) => {
+								return (
+									<div
+										className={styles.memberItem}
+										key={`member-${index}`}
+									>
+										{member}
+									</div>
+								)
+							})}
+						</section>
+					)}
 				</main>
-			</main>
-			<footer>
-				<p>
-					Réalisé par{' '}
-					<a href='https://samuelholmes.tech'>Samuel Holmes</a> en
-					Hĕkătŏmbaiṓn de l'an 2022 après JC
-				</p>
+				{loading ? (
+					<>
+						<p>
+							Jason navigue vers la base de données pour récupérer
+							la liste des équipiers
+						</p>
+						<p>Merci de patienter ...</p>
+					</>
+				) : (
+					<>
+						<p>
+							Réalisé par{' '}
+							<a href='https://samuelholmes.tech'>
+								Samuel Holmes
+							</a>{' '}
+							en Hekatombaion de l'an 2022 après JC
+						</p>
+						<p>
+							<em>
+								Génial ce que l'on trouve sur{' '}
+								<a
+									href='https://greekerthanthegreeks.com/2019/07/hekatombaion-the-ancient-athenian-month-of-july-and-first-month-of-the-year-in-ancient-greece.html'
+									target='_blank'
+									rel='noopener noreferrer'
+								>
+									le web
+								</a>
+							</em>
+						</p>
+					</>
+				)}
 			</footer>
 		</div>
 	)

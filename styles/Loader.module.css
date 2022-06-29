@@ -1,0 +1,61 @@
+/* source : https://codepen.io/tedmcdo/pen/PqxKXg */
+
+.ocean {
+	height: 5%;
+	width: 100%;
+	position: absolute;
+	bottom: 90px;
+	left: -350px;
+}
+
+.wave {
+	background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg)
+		repeat-x;
+	position: absolute;
+	top: -198px;
+	width: 6400px;
+	height: 198px;
+	animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+	transform: translate3d(0, 0, 0);
+}
+
+.wave:nth-of-type(2) {
+	top: -200px;
+	animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite;
+	opacity: 1;
+}
+
+.imageContainer {
+	z-index: 3;
+	position: absolute;
+	top: -270px;
+	left: 80%;
+	animation: float 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+@keyframes float {
+	0%,
+	100% {
+		transform: rotate(0) scaleX(-1);
+		top: -280px;
+	}
+	25% {
+		transform: rotate(20deg) scaleX(-1);
+	}
+	50% {
+		transform: rotate(0) scaleX(-1);
+		top: -138px;
+	}
+	75% {
+		transform: rotate(-20deg) scaleX(-1);
+	}
+}
+
+@keyframes wave {
+	0% {
+		margin-left: 0;
+	}
+	100% {
+		margin-left: -1600px;
+	}
+}
