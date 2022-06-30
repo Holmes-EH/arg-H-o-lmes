@@ -29,11 +29,14 @@
 }
 .footer {
 	z-index: 2;
-	position: relative;
+	position: fixed;
 	text-align: center;
 	color: #fff;
 	background-color: #015871;
 	padding: 0.25em 1em;
+	top: calc(100vh - 100px);
+	width: 100vw;
+	height: 100px;
 }
 .newMemberForm {
 	display: flex;
@@ -55,7 +58,7 @@
 }
 .memberList {
 	display: grid;
-	grid-template-columns: 30% 30% 30%;
+	grid-template-columns: auto auto auto;
 	gap: 10px;
 }
 .memberItem:nth-child(3n + 2) {

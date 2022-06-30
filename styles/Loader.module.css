@@ -4,8 +4,9 @@
 	height: 5%;
 	width: 100%;
 	position: absolute;
-	bottom: 6vh;
+	bottom: 20px;
 	left: -589px;
+	z-index: 1;
 }
 
 .wave {
