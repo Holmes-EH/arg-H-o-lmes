@@ -1,4 +1,4 @@
-# All Aboard th Argos!
+# All Aboard the Argos!
 
 This repo is my solution to a dev challenge to prepare my tech interview with Claire Daudignon from [Wild Code School](https://www.wildcodeschool.com/en-GB)
 
