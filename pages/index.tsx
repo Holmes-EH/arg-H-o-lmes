@@ -10,7 +10,7 @@ import styles from '../styles/Home.module.css'
 import React, { useState, useEffect, useContext } from 'react'
 import { AppContext } from '../components/context/store'
 
-import { FaGithubSquare } from 'react-icons/fa'
+import { BsGithub } from 'react-icons/bs'
 import Loader from '../components/Loader'
 import axios from 'axios'
 
@@ -129,6 +129,15 @@ const Home: NextPage = ({
 				</div>
 				<div className={styles.members}>
 					<h2>Membres de l&apos;équipage</h2>
+					<small
+						style={{
+							textAlign: 'center',
+							marginTop: '-22px',
+							marginBottom: '1.5em',
+						}}
+					>
+						{members.length} sur 50
+					</small>
 					{loading ? (
 						<Loader />
 					) : (
@@ -200,7 +209,7 @@ const Home: NextPage = ({
 								target='_blank'
 								rel='noopener noreferrer'
 							>
-								<FaGithubSquare style={{ fontSize: '2em' }} />
+								<BsGithub style={{ fontSize: '2em' }} />
 							</a>
 						</p>
 					</>
