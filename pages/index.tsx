@@ -38,7 +38,6 @@ const Home: NextPage = ({
 			})
 			const newMemberList = [...members]
 			newMemberList.push(data)
-			console.log(newMemberList)
 			setNewMember('')
 			setMembers(newMemberList)
 			setTimeout(() => {
