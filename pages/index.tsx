@@ -115,6 +115,7 @@ const Home: NextPage = ({
 							id='name'
 							name='name'
 							type='text'
+							required
 							value={newMember}
 							placeholder='Charalampos'
 							onChange={(
