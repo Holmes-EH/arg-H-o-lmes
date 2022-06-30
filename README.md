@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/df2d0c39-3940-4678-9cf3-5194dd53440c/deploy-status)](https://app.netlify.com/sites/silver-seahorse-d07e13/deploys)
+
 # All Aboard th Argos!
 
 This repo is my solution to a dev challenge to prepare my tech interview with Claire Daudignon from [Wild Code School](https://www.wildcodeschool.com/en-GB)
