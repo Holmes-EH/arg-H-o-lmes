@@ -1,17 +1,17 @@
-import { createContext, useContext, useReducer } from 'react'
+import React, { createContext, useReducer } from 'react'
 import reducer from './reducer'
+import { AppContextType } from '../../lib/types'
 
-interface AppContextInterface {
-	loading: boolean
-	message: object
-}
-
-const AppContext = createContext<AppContextInterface | null>(null)
+const AppContext = createContext<[AppContextType, React.Dispatch<any>]>([
+	{ loading: false, message: {} },
+	() => {},
+])
 AppWrapper.displayName = 'Store'
 
-export function AppWrapper({ children }) {
+export function AppWrapper({ children }: { children: any }) {
 	let initialState = {
 		loading: false,
+		message: {},
 	}
 	const [state, dispatch] = useReducer(reducer, initialState)
 
@@ -22,6 +22,4 @@ export function AppWrapper({ children }) {
 	)
 }
 
-export function globalContext() {
-	return useContext(AppContext)
-}
+export { AppContext }

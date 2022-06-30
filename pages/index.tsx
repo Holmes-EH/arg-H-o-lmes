@@ -1,27 +1,34 @@
-import type { NextPage, GetStaticProps } from 'next'
+import type {
+	NextPage,
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+} from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-import { useState, useEffect } from 'react'
-import { globalContext } from '../components/context/store'
-import dispatchReqError from '../lib/dispatchReqError'
+import React, { useState, useEffect, useContext } from 'react'
+import { AppContext } from '../components/context/store'
 
 import Loader from '../components/Loader'
 import axios from 'axios'
 
-type Props = {
-	savedMembers: { name: string; _id: string }[]
+type Member = {
+	name: string
+	_id: string
 }
+type NewMember = string
 
-const Home: NextPage = ({ savedMembers }: Props) => {
-	const [state, dispatch] = globalContext()
+const Home: NextPage = ({
+	savedMembers,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+	const [state, dispatch] = useContext(AppContext)
 	const { loading } = state
 
-	const [members, setMembers] = useState<Array<string>>(savedMembers)
-	const [newMember, setNewMember] = useState<String>('')
+	const [members, setMembers] = useState<Array<Member>>(savedMembers)
+	const [newMember, setNewMember] = useState<NewMember>('')
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.SyntheticEvent) => {
 		e.preventDefault()
 		dispatch({ type: 'LOADING' })
 		try {
@@ -36,8 +43,18 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 			setTimeout(() => {
 				dispatch({ type: 'DONE_LOADING' })
 			}, 1000)
-		} catch (error) {
-			dispatchReqError(dispatch, error)
+		} catch (error: any) {
+			dispatch({ type: 'DONE_LOADING' })
+			dispatch({
+				type: 'MESSAGE',
+				payload: {
+					type: 'error',
+					text:
+						error.response && error.response.data.message
+							? error.response.data.message
+							: error.message,
+				},
+			})
 		}
 	}
 
@@ -90,7 +107,7 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 					<h2>Ajouter un(e) Argonaute</h2>
 					<form
 						className={styles.newMemberForm}
-						onSubmit={handleSubmit}
+						onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}
 					>
 						<label htmlFor='name'>Nom de l&apos;Argonaute </label>
 						<input
@@ -99,7 +116,9 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 							type='text'
 							value={newMember}
 							placeholder='Charalampos'
-							onChange={(e) => {
+							onChange={(
+								e: React.ChangeEvent<HTMLInputElement>
+							): void => {
 								setNewMember(e.target.value)
 							}}
 						/>
@@ -107,7 +126,7 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 					</form>
 				</div>
 				<div className={styles.members}>
-					<h2>Membres de l'équipage</h2>
+					<h2>Membres de l&apos;équipage</h2>
 					{loading ? (
 						<Loader />
 					) : (
@@ -146,17 +165,25 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 							>
 								Samuel Holmes
 							</a>{' '}
-							en Hekatombaion de l'an 2022 après JC
+							en{' '}
+							<a
+								href='https://greekerthanthegreeks.com/2019/07/hekatombaion-the-ancient-athenian-month-of-july-and-first-month-of-the-year-in-ancient-greece.html'
+								target='_blank'
+								rel='noopener noreferrer'
+							>
+								Hekatombaion
+							</a>{' '}
+							de l&apos;an 2022 après JC
 						</p>
 						<p>
 							<em>
-								Génial ce que l'on trouve sur{' '}
+								Retrouvez le code source{' '}
 								<a
-									href='https://greekerthanthegreeks.com/2019/07/hekatombaion-the-ancient-athenian-month-of-july-and-first-month-of-the-year-in-ancient-greece.html'
+									href='https://github.com/Holmes-EH/arg-H-o-lmes'
 									target='_blank'
 									rel='noopener noreferrer'
 								>
-									le web
+									ici
 								</a>
 							</em>
 						</p>
@@ -169,9 +196,9 @@ const Home: NextPage = ({ savedMembers }: Props) => {
 
 export default Home
 
-export const getStaticProps: GetStaticProps = async () => {
-	const res = await fetch(`http://localhost:3000/api/members`)
-	const savedMembers = await res.json()
+export const getServerSideProps: GetServerSideProps = async () => {
+	const res = await fetch(`${process.env.API_URI}/members`)
+	const savedMembers: Member[] = await res.json()
 
 	return { props: { savedMembers }, revalidate: 10 }
 }

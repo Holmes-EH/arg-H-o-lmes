@@ -1,15 +1,7 @@
-import { timeStamp } from 'console'
-import mongoose from 'mongoose'
+// External dependencies
+import { ObjectId } from 'mongodb'
 
-const memberSchema = mongoose.Schema(
-	{
-		name: {
-			type: String,
-			required: true,
-		},
-	},
-	{ timestamp: true }
-)
-
-module.exports =
-	mongoose.models.Member || mongoose.model('Member', memberSchema)
+// Class implementation
+export default class Member {
+	constructor(public name: string, public id?: ObjectId) {}
+}
