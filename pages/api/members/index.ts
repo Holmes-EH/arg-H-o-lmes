@@ -1,3 +1,4 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import { getMembers, addNewMember } from '../../../controllers/memberController'
 import { connectToDatabase } from '../../../lib/database.services'
 
