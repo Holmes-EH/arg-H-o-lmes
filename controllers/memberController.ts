@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { MessageResponseType } from '../lib/types'
 
+
 // @desc    Get all members
 // @route   GET /api/members
 // @access  Public
@@ -21,6 +22,7 @@ const getMembers = async (req: NextApiRequest, res: NextApiResponse) => {
 	} catch (error: any) {
 		console.error(error)
 		res.status(500).json({ message: error.message })
+
 	}
 }
 

@@ -1,7 +1,6 @@
 import React, { createContext, useReducer } from 'react'
 import reducer from './reducer'
 import { AppContextType } from '../../lib/types'
-
 const AppContext = createContext<[AppContextType, React.Dispatch<any>]>([
 	{ loading: false, message: {} },
 	() => {},

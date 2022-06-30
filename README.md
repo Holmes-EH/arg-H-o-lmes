@@ -4,7 +4,11 @@ This repo is my solution to a dev challenge to prepare my tech interview with Cl
 
 ## The stack
 
+<<<<<<< HEAD
 -   I chose a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with typescript.
+=======
+-   I chose a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+>>>>>>> main
     I have been working with this framework for while now... I ♥️ it !!
 -   The database will be [MongoDB](https://www.mongodb.com/), using [mongoDb driver](https://www.mongodb.com/docs/drivers/node/current/)
 

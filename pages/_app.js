@@ -1,8 +1,7 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
 import { AppWrapper } from '../components/context/store'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }) {
 	return (
 		<AppWrapper>
 			<Component {...pageProps} />
