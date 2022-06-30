@@ -34,9 +34,12 @@
 	color: #fff;
 	background-color: #015871;
 	padding: 0.25em 1em;
-	top: calc(100vh - 100px);
+	top: calc(100vh - 135px);
 	width: 100vw;
-	height: 100px;
+	height: 135px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 .newMemberForm {
 	display: flex;

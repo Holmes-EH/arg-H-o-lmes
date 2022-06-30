@@ -11,6 +11,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { AppContext } from '../components/context/store'
 
 import { BsGithub } from 'react-icons/bs'
+import { SiNetlify } from 'react-icons/si'
 import Loader from '../components/Loader'
 import axios from 'axios'
 
@@ -193,6 +194,25 @@ const Home: NextPage = ({
 								gap: ' 1em',
 							}}
 						>
+							{' '}
+							<em>
+								Hébergé sur{' '}
+								<a
+									href='https://www.netlify.com/'
+									target='_blank'
+									rel='noopener noreferrer'
+								>
+									Netlify
+								</a>
+							</em>
+							<a
+								href='https://www.netlify.com/'
+								target='_blank'
+								rel='noopener noreferrer'
+							>
+								<SiNetlify style={{ fontSize: '2em' }} />
+							</a>
+							{'|'}
 							<em>
 								Retrouvez le code source{' '}
 								<a
