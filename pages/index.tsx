@@ -10,6 +10,7 @@ import styles from '../styles/Home.module.css'
 import React, { useState, useEffect, useContext } from 'react'
 import { AppContext } from '../components/context/store'
 
+import { FaGithubSquare } from 'react-icons/fa'
 import Loader from '../components/Loader'
 import axios from 'axios'
 
@@ -175,7 +176,14 @@ const Home: NextPage = ({
 							</a>{' '}
 							de l&apos;an 2022 après JC
 						</p>
-						<p>
+						<p
+							style={{
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+								gap: ' 1em',
+							}}
+						>
 							<em>
 								Retrouvez le code source{' '}
 								<a
@@ -186,6 +194,13 @@ const Home: NextPage = ({
 									ici
 								</a>
 							</em>
+							<a
+								href='https://github.com/Holmes-EH/arg-H-o-lmes'
+								target='_blank'
+								rel='noopener noreferrer'
+							>
+								<FaGithubSquare style={{ fontSize: '2em' }} />
+							</a>
 						</p>
 					</>
 				)}
@@ -200,5 +215,5 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	const res = await fetch(`${process.env.API_URI}/members`)
 	const savedMembers: Member[] = await res.json()
 
-	return { props: { savedMembers }, revalidate: 10 }
+	return { props: { savedMembers } }
 }
