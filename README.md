@@ -1,14 +1,14 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/df2d0c39-3940-4678-9cf3-5194dd53440c/deploy-status)](https://app.netlify.com/sites/silver-seahorse-d07e13/deploys)
+
+
 # All Aboard the Argos!
+
 
 This repo is my solution to a dev challenge to prepare my tech interview with Claire Daudignon from [Wild Code School](https://www.wildcodeschool.com/en-GB)
 
 ## The stack
 
-<<<<<<< HEAD
 -   I chose a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with typescript.
-=======
--   I chose a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
->>>>>>> main
     I have been working with this framework for while now... I ♥️ it !!
 -   The database will be [MongoDB](https://www.mongodb.com/), using [mongoDb driver](https://www.mongodb.com/docs/drivers/node/current/)
 
