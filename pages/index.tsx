@@ -1,22 +1,35 @@
+import type {
+	NextPage,
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+} from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-import { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { AppContext } from '../components/context/store'
-import dispatchReqError from '../lib/dispatchReqError'
 
+import { FaGithubSquare } from 'react-icons/fa'
 import Loader from '../components/Loader'
 import axios from 'axios'
 
-const Home = ({ savedMembers }) => {
+type Member = {
+	name: string
+	_id: string
+}
+type NewMember = string
+
+const Home: NextPage = ({
+	savedMembers,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const [state, dispatch] = useContext(AppContext)
 	const { loading } = state
 
-	const [members, setMembers] = useState(savedMembers)
-	const [newMember, setNewMember] = useState('')
+	const [members, setMembers] = useState<Array<Member>>(savedMembers)
+	const [newMember, setNewMember] = useState<NewMember>('')
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.SyntheticEvent) => {
 		e.preventDefault()
 		dispatch({ type: 'LOADING' })
 		try {
@@ -31,8 +44,18 @@ const Home = ({ savedMembers }) => {
 			setTimeout(() => {
 				dispatch({ type: 'DONE_LOADING' })
 			}, 1000)
-		} catch (error) {
-			dispatchReqError(dispatch, error)
+		} catch (error: any) {
+			dispatch({ type: 'DONE_LOADING' })
+			dispatch({
+				type: 'MESSAGE',
+				payload: {
+					type: 'error',
+					text:
+						error.response && error.response.data.message
+							? error.response.data.message
+							: error.message,
+				},
+			})
 		}
 	}
 
@@ -85,7 +108,7 @@ const Home = ({ savedMembers }) => {
 					<h2>Ajouter un(e) Argonaute</h2>
 					<form
 						className={styles.newMemberForm}
-						onSubmit={handleSubmit}
+						onSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}
 					>
 						<label htmlFor='name'>Nom de l&apos;Argonaute </label>
 						<input
@@ -94,7 +117,9 @@ const Home = ({ savedMembers }) => {
 							type='text'
 							value={newMember}
 							placeholder='Charalampos'
-							onChange={(e) => {
+							onChange={(
+								e: React.ChangeEvent<HTMLInputElement>
+							): void => {
 								setNewMember(e.target.value)
 							}}
 						/>
@@ -141,19 +166,41 @@ const Home = ({ savedMembers }) => {
 							>
 								Samuel Holmes
 							</a>{' '}
-							en Hekatombaion de l&apos;an 2022 après JC
+							en{' '}
+							<a
+								href='https://greekerthanthegreeks.com/2019/07/hekatombaion-the-ancient-athenian-month-of-july-and-first-month-of-the-year-in-ancient-greece.html'
+								target='_blank'
+								rel='noopener noreferrer'
+							>
+								Hekatombaion
+							</a>{' '}
+							de l&apos;an 2022 après JC
 						</p>
-						<p>
+						<p
+							style={{
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+								gap: ' 1em',
+							}}
+						>
 							<em>
-								Génial ce que l&apos;on trouve sur{' '}
+								Retrouvez le code source{' '}
 								<a
-									href='https://greekerthanthegreeks.com/2019/07/hekatombaion-the-ancient-athenian-month-of-july-and-first-month-of-the-year-in-ancient-greece.html'
+									href='https://github.com/Holmes-EH/arg-H-o-lmes'
 									target='_blank'
 									rel='noopener noreferrer'
 								>
-									le web
+									ici
 								</a>
 							</em>
+							<a
+								href='https://github.com/Holmes-EH/arg-H-o-lmes'
+								target='_blank'
+								rel='noopener noreferrer'
+							>
+								<FaGithubSquare style={{ fontSize: '2em' }} />
+							</a>
 						</p>
 					</>
 				)}
@@ -164,9 +211,9 @@ const Home = ({ savedMembers }) => {
 
 export default Home
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
 	const res = await fetch(`${process.env.API_URI}/members`)
-	const savedMembers = await res.json()
+	const savedMembers: Member[] = await res.json()
 
 	return { props: { savedMembers } }
 }
