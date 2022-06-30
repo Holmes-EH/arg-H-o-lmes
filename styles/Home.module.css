@@ -55,7 +55,7 @@
 }
 .memberList {
 	display: grid;
-	grid-template-columns: 30vw 30vw 30vw;
+	grid-template-columns: 30% 30% 30%;
 	gap: 10px;
 }
 .memberItem:nth-child(3n + 2) {
